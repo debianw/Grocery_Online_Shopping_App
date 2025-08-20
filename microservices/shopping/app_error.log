@@ -1,0 +1,9 @@
+{"level":"error","message":"Wed Aug 20 2025 13:30:48 GMT-0600 (Central Standard Time)-{}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 13:31:23 GMT-0600 (Central Standard Time)-{}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:28:27 GMT-0600 (Central Standard Time)-{}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:30:14 GMT-0600 (Central Standard Time)-{}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:41:06 GMT-0600 (Central Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":{},\"isOperational\":true}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:41:11 GMT-0600 (Central Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":{},\"isOperational\":true}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:41:45 GMT-0600 (Central Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":{},\"isOperational\":true}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:42:20 GMT-0600 (Central Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":{\"name\":\"API Error\",\"statusCode\":500,\"isOperational\":true},\"isOperational\":true}","private":true}
+{"level":"error","message":"Wed Aug 20 2025 14:42:59 GMT-0600 (Central Standard Time)-{\"name\":\"Data Not found\",\"statusCode\":{\"name\":\"API Error\",\"statusCode\":500,\"isOperational\":true},\"isOperational\":true}","private":true}

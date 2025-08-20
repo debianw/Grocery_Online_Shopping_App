@@ -1,0 +1,14 @@
+services:
+  mongo:
+    image: mongo:8.0.4
+    container_name: shop_mongo
+    ports:
+      - 27018:27017
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    volumes:
+      - ./dbdata/db:/data/db
+    mem_limit: 512m
+    cpu_count: 2
