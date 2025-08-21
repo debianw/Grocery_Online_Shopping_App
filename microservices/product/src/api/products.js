@@ -1,8 +1,8 @@
 import ProductService from '../services/product-service.js';
-import UserAuth from './middlewares/auth.js'
-import { publishCustomerEvent, publishShoppingEvent } from '../utils/publish-events.js';
+import UserAuth from './middlewares/auth.js';
+import { CUSTOMER_BINDING_KEY, SHOPPING_BINDING_KEY, PublishMessage } from '@packages/common/mq.js';
 
-export default (app) => {
+export default (app, channel) => {
     
     const service = new ProductService();
 
@@ -68,9 +68,12 @@ export default (app) => {
         try {
             const product = await service.GetProductById(req.body._id);
 
-            publishCustomerEvent('ADD_TO_WISHLIST', {
-                userId: _id,
-                product,
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, {
+                event: 'ADD_TO_WISHLIST',
+                data: {
+                    userId: _id,
+                    product,
+                }
             });
 
             return res.status(200).send('ok');
@@ -86,9 +89,13 @@ export default (app) => {
 
         try {
             const product = await service.GetProductById(productId);
-            publishCustomerEvent('REMOVE_FROM_WISHLIST', {
-                userId: _id,
-                product,
+
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, {
+                event: 'REMOVE_FROM_WISHLIST',
+                data: {
+                    userId: _id,
+                    product,
+                }
             });
             return res.status(200).send('ok');
         } catch (err) {
@@ -104,15 +111,21 @@ export default (app) => {
         try {     
             const product = await service.GetProductById(_id);
     
-            publishCustomerEvent('ADD_TO_CART', {
-                userId: req.user._id,
-                product,
-                qty
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, {
+                event: 'ADD_TO_CART',
+                data: {
+                    userId: req.user._id,
+                    product,
+                    qty
+                }
             });
-            publishShoppingEvent('ADD_TO_CART', {
-                userId: req.user._id,
-                product,
-                qty
+            PublishMessage(channel, SHOPPING_BINDING_KEY, {
+                event: 'ADD_TO_CART',
+                data: {
+                    userId: req.user._id,
+                    product,
+                    qty
+                }
             });
     
             return res.status(200).send('ok');
@@ -125,16 +138,24 @@ export default (app) => {
     app.delete('/cart/:id',UserAuth, async (req,res,next) => {
         try {
             const product = await service.GetProductById(req.params.id);
-            publishCustomerEvent('REMOVE_FROM_CART', {
-                userId: req.user._id,
-                product,
-                qty: 0,
+
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, {
+                event: 'REMOVE_FROM_CART',
+                data: {
+                    userId: req.user._id,
+                    product,
+                    qty: 0
+                }
             });
-            publishShoppingEvent('REMOVE_FROM_CART', {
-                userId: req.user._id,
-                product,
-                qty: 0,
+            PublishMessage(channel, SHOPPING_BINDING_KEY, {
+                event: 'REMOVE_FROM_CART',
+                data: {
+                    userId: req.user._id,
+                    product,
+                    qty: 0
+                }
             });
+
             return res.status(200).send('ok');
         } catch (err) {
             next(err)

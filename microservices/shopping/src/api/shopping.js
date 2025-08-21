@@ -1,10 +1,12 @@
+import { CUSTOMER_BINDING_KEY, PublishMessage } from "@packages/common/mq.js";
 import ShoppingService from "../services/shopping-service.js"
-import { publishCustomerEvent } from "../utils/publish-events.js";
 import UserAuth from './middlewares/auth.js'
 
-export default (app) => {
+export default (app, channel) => {
 
     const service = new ShoppingService();
+
+    service.SubscribeToChannel(channel);
 
     app.get('/', (req, res) => {
         res.send('Shopping Service is running');
@@ -18,10 +20,14 @@ export default (app) => {
         try {
             const { data } = await service.PlaceOrder({ _id, txnNumber });
 
-            publishCustomerEvent('CREATE_ORDER', {
-                userId: _id,
-                order: data,
+            PublishMessage(channel, CUSTOMER_BINDING_KEY, {
+                event: 'CREATE_ORDER',
+                data: {
+                    userId: _id,
+                    order: data,
+                }
             });
+
             return res.status(200).json(data);
 
         } catch (err) {

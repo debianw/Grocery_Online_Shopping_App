@@ -1,15 +1,16 @@
 {
-  "name": "product",
+  "name": "@microservices/product",
   "version": "1.0.0",
   "main": "./src/index.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
     "start": "node --env-file=.env ./src/index.js",
-    "dev": "nodemon --watch ./src/index.js --exec 'node --env-file=.env ./src/index.js'",
+    "dev": "nodemon --env-file=.env ./src/index.js",
     "test": "echo \"No tests specified\" && exit 0"
   },
   "dependencies": {
+    "@packages/common": "1.0.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",

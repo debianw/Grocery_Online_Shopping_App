@@ -1,12 +1,12 @@
 {
-  "name": "api-gateway",
+  "name": "@microservices/api-gateway",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon --watch index.js --exec 'node --env-file=.env index.js'"
+    "start": "node --env-file=.env index.js",
+    "dev": "nodemon --watch ./src/index.js --exec 'node --env-file=.env ./src/index.js'"
   },
   "dependencies": {
     "cors": "^2.8.5",

@@ -1,12 +1,10 @@
 import CustomerService from "../services/customer-service.js";
 import UserAuth from "./middlewares/auth.js";
 
-export default (app) => {
+export default (app, channel) => {
   const service = new CustomerService();
 
-  app.get('/', (req, res) => {
-    res.send('Customer Service is running');
-  });
+  service.SubscribeToChannel(channel);
 
   app.post("/signup", async (req, res, next) => {
     try {

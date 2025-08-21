@@ -12,3 +12,16 @@ services:
       - ./dbdata/db:/data/db
     mem_limit: 512m
     cpu_count: 2
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: shop_rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    mem_limit: 512m
+    cpu_count: 1

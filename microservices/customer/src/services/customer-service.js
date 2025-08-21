@@ -1,6 +1,7 @@
 import { CustomerRepository } from "../database/index.js";
 import { FormateData, GeneratePassword, GenerateSalt, GenerateSignature, ValidatePassword } from '../utils/index.js';
 import { APIError, BadRequestError } from '../utils/app-errors.js'
+import { CUSTOMER_BINDING_KEY, SubscribeToChannel } from "@packages/common/mq.js";
 
 
 // All Business logic will be here
@@ -139,7 +140,17 @@ class CustomerService {
         }
     }
 
-    async SubscribeEvents(payload) {
+    async SubscribeToChannel(channel) {
+        SubscribeToChannel(channel, CUSTOMER_BINDING_KEY, payload => {
+            const { event, data } = payload;
+            console.log('Received data in Customer Service:', event);
+            console.log('Data:', data);
+
+            this.SubscribeEvents(payload);
+        })
+    }
+
+    SubscribeEvents(payload) {
 
         const { event, data } = payload;
 

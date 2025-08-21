@@ -1,0 +1,13 @@
+{
+  "name": "api-services",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "repository": "git@github.com:debianw/Grocery_Online_Shopping_App.git",
+  "author": "Waly <debianw@gmail.com>",
+  "license": "MIT",
+  "workspaces": [
+    "microservices/*",
+    "packages/*"
+  ]
+}

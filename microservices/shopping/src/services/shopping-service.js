@@ -1,6 +1,7 @@
 import { ShoppingRepository } from "../database/index.js";
 import { FormateData } from "../utils/index.js";
 import { APIError } from "../utils/app-errors.js";
+import { SHOPPING_BINDING_KEY, SubscribeToChannel } from "@packages/common/mq.js";
 
 // All Business logic will be here
 class ShoppingService {
@@ -74,6 +75,16 @@ class ShoppingService {
       default:
         break;
     }
+  }
+
+  async SubscribeToChannel(channel) {
+    SubscribeToChannel(channel, SHOPPING_BINDING_KEY, payload => {
+      const { event, data } = payload;
+      console.log('Received data in Shopping Service:', event);
+      console.log('Data:', data);
+
+      this.SubscribeEvents(payload);
+    })
   }
 }
 
